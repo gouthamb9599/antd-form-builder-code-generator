@@ -1,9 +1,11 @@
 import React ,{useLayoutEffect, useState} from "react";
-import { Form, Button,Checkbox } from "antd";
+import { Form, Button,Checkbox,Select } from "antd";
+
 import FormBuilder from "antd-form-builder";
 import config from "../config/config";
 // import { FormInstance } from 'antd/lib/form';
 import { MessageBus } from "./messagebus.jsx";
+const { Option } = Select;
 
 function DynamicForm() {
   useLayoutEffect(() => {
@@ -18,15 +20,16 @@ function DynamicForm() {
   };
 //  const formRef = React.createRef<FormInstance>();
   const onCTNChange = (e)=>{
-    setCtn(e.target.value);
+    console.log(e);
+    setCtn(e.target);
   }
 
   return (
     <div>
       <Form form={form} layout="horizontal" onFinish={handleSubmit}>
-        <Form.Item name="CTNnumber" label="CTN Number" rules={[{ required: true }]}>
+        <Form.Item name="CTNnumber" label="Selected CTN Number" rules={[{ required: true }]}>
           <Select
-            onChange={onCTNChange}
+            onChange={e=>onCTNChange(e)}
           >
             <Option default value="(784)234-1231">(784)234-1231</Option>
             <Option value="(753)232-3333">(753)232-3333</Option>

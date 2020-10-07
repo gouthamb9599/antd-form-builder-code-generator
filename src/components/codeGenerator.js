@@ -2,10 +2,7 @@ import React,{useState} from "react";
 import { Button } from "antd";
 import Countdown, { zeroPad, calcTimeDelta, formatTimeDelta } from 'react-countdown';
 const cryptoRandomString = require("crypto-random-string");
-
-
-
-function CodeGenerator(props) {
+function CodeGenerator() {
   const [timer,openTimer]=useState(false);
   const [access,setAccess]=useState(false);
   const [verified,setVerified]=useState(false);
@@ -13,10 +10,9 @@ function CodeGenerator(props) {
   const [given,setGiven]=useState('');
   const generateCode = () => {
    setCode(cryptoRandomString({ length: 6}))
-   console.log(code);
+   console.log(cryptoRandomString({ length: 6}));
    openTimer(true);
    setAccess(true);
-  
   };
   const renderer = ({ minutes, seconds }) => (
     <span>
@@ -31,8 +27,12 @@ function CodeGenerator(props) {
     setGiven(e.target.value);
   }
   const ReferCode=()=>{
+
     if(given==code){
       setVerified(true);
+    }
+    else{
+      console.log('no')
     }
     
   }
@@ -54,13 +54,15 @@ function CodeGenerator(props) {
         onClick={generateCode}>Generate Code</Button>
         {timer ?
         <div> 
+        {verified ?<h3>verified</h3>:
+        <div>
         <Countdown date={Date.now() + 120000} renderer={renderer} onComplete={enablebutton}/>
-        <input type="text" value={code} placeholder="" onChange={handleChange}/>
+        <input type="text" value={given} placeholder="" onChange={handleChange}/>
         <Button  style={{
           marginLeft: "50px",
           marginRight: "50px"
         }} 
-        onClick={ReferCode}>Verify</Button>
+        onClick={ReferCode}>Verify</Button></div>} 
         </div>:<></>}
     </div>
   );
