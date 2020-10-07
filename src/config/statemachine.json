@@ -1,0 +1,46 @@
+
+  {
+    "Form":
+    {
+    "id":"form",
+    "initial": "start",
+    "context": {
+      "retries": 0
+    },
+    "states": {
+      "start": {
+        "on": {
+          "SENDCODE":"sendCode"  
+        }
+      },
+      "sendCode": {
+        "on": {
+          "SUBMITCODE": "submitCode"
+        }
+      },
+      "submitCode": {
+        "on": {
+          "CODEREJECTED": "sendCode",
+                    "CODEACCEPTED": "takePayment"
+
+        }
+      },
+      "takePayment": {
+        "on": {
+          "SUBMITPAYMENT": "submitPayment"
+        }
+      },
+      "submitPayment": {
+        "on": {
+          "PAYMENTFAILURE": "takePayment",
+                    "PAYMENTSUCCESS": "confirmation"
+
+        }
+      },
+      "confirmation": {
+        "type": "final"
+      }
+    }
+    
+  }
+}
