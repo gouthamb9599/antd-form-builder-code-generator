@@ -40,6 +40,9 @@ function DynamicForm() {
         <Form.Item>
           <Checkbox>I agree the <a href="#terms">terms and Conditions</a></Checkbox>
         </Form.Item>
+        <Form.Item>
+          <Button>Proceed To Payment</Button>
+        </Form.Item>
       </Form>
     </div>
   );
