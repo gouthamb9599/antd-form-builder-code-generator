@@ -1,30 +1,28 @@
-import React from "react";
+import React,{useState} from "react";
 import { Button } from "antd";
+import Countdown, { zeroPad, calcTimeDelta, formatTimeDelta } from 'react-countdown';
 const cryptoRandomString = require("crypto-random-string");
-import Timer from 'react-timer-wrapper';
 
 
 
 function CodeGenerator(props) {
   const [timer,openTimer]=useState(false);
+  const [access,setAccess]=useState(false);
+  
   const generateCode = () => {
    console.log(cryptoRandomString({ length: 6}))
-   openTimer(!timer);
+   openTimer(true);
+   setAccess(true);
+  
   };
-  const onTimerStart=({duration, progress, time})=> {
-
-  }
-
-  const onTimerStop=({duration, progress, time})=> {
-
-  }
-
-  const onTimerTimeUpdate=({duration, progress, time})=> {
-
-  }
-
-  const onTimerFinish=({duration, progress, time})=> {
-
+  const renderer = ({ minutes, seconds }) => (
+    <span>
+      {zeroPad(minutes)}:{zeroPad(seconds)}
+    </span>
+  );
+  const enablebutton=()=>{
+    setAccess(false);
+    openTimer(false);
   }
   return (
     <div style={{ borderStyle: "dashed",
@@ -39,17 +37,14 @@ function CodeGenerator(props) {
       <Button  style={{
           marginLeft: "50px",
           marginRight: "50px"
-        }}
+        }} 
+        disabled={access}
         onClick={generateCode}>Generate Code</Button>
-        {timer ?<div> 
-          <Timer
-        active={timer}
-        time={20000}
-        onFinish={this.onTimerFinish}
-        onStart={this.onTimerStart}
-        onStop={this.onTimerStop}
-        onTimeUpdate={this.onTimerTimeUpdate}
-      /></div>:<></>}
+        {timer ?
+        <div> 
+        <Countdown date={Date.now() + 120000} renderer={renderer} onComplete={enablebutton}/>
+
+        </div>:<></>}
     </div>
   );
 }

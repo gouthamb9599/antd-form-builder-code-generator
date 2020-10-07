@@ -11,15 +11,15 @@ let state = initialState;
 const MessageBus = {
   init: () => {
     state = { ...state, values: null };
-    subject.next(state);
+    globalSubject.next(state);
   },
-  send: (subject, data) => 
+  send: (globalSubject, data) => 
   {
     state = {
       ...state,
       values:data
     };
-    globalSubject.next({ topic: subject, data: data })
+    globalSubject.next({ topic: globalSubject, data: data })
   }
 
 }

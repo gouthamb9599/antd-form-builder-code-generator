@@ -26,7 +26,6 @@ config.forms={
       },
       {
         "key":"code Generator",
-        "label":"Code Generator",
         "widget":CodeGenerator,
 
       }
